@@ -252,12 +252,12 @@ class OpenApiSchemaGenerator(SchemaGenerator):
                 except:
                     model_field = None
 
-                if model_field is not None and model_field.verbose_name:
+                if model_field is not None and hasattr(model_field, 'verbose_name'):
                     title = force_text(model_field.verbose_name)
 
-                if model_field is not None and model_field.help_text:
+                if model_field is not None and hasattr(model_field, 'help_text'):
                     description = force_text(model_field.help_text)
-                elif model_field is not None and model_field.primary_key:
+                elif model_field is not None and hasattr(model_field, 'primary_key'):
                     description = get_pk_description(model, model_field)
 
                 if hasattr(view, 'lookup_value_regex') and view.lookup_field == variable:
